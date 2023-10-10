@@ -10,7 +10,7 @@ function getTranslation(text) {
 }
 
 function errorHandle(error) {
-  console.log("Error occured Fix it!", error);
+  console.log("Fixed the error", error);
   alert("Something wrong with server :') ");
 }
 function clickHandle() {
