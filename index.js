@@ -2,14 +2,17 @@ var translateBtn = document.querySelector("#translate-btn");
 var textInput = document.querySelector("#translate-input");
 var outputDiv = document.querySelector("#outt");
 
-// var serverURL = "https://lessonfourapi.tanaypratap.repl.co/translate/yoda.json";  
-
 let serverURL = "https://api.funtranslations.com/translate/shakespeare.json?text=";
 
 async function getTranslation(text){
-  let response = await fetch(serverURL + text);
-  let data = await response.json();
-  outputDiv.innerHTML = data.contents.translated;
+  try{
+    let response = await fetch(serverURL + text);
+    let data = await response.json();
+    outputDiv.innerHTML = data.contents.translated;
+  } 
+  catch(error){
+    alert("Something wrong with server :')");
+  }
 }
 
 translateBtn.addEventListener("click", () => {
@@ -18,7 +21,7 @@ translateBtn.addEventListener("click", () => {
 })
 
 textInput.addEventListener("keydown", (e) => {
-  console.log(e);
+
   if(e.key === "Enter"){
     e.preventDefault();
     translateBtn.click();
