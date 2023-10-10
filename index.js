@@ -25,4 +25,4 @@ function clickHandle() {
     .catch(errorHandle);
 }
 
-translateBtn.addEventListener("click", clickHandle());
+translateBtn.addEventListener("click", clickHandle);
