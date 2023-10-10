@@ -2,27 +2,29 @@ var translateBtn = document.querySelector("#translate-btn");
 var textInput = document.querySelector("#translate-input");
 var outputDiv = document.querySelector("#outt");
 
-// var serverURL = "https://lessonfourapi.tanaypratap.repl.co/translate/yoda.json";
+let serverURL = "https://api.funtranslations.com/translate/shakespeare.json?text=";
 
-let serverURL = "https://api.funtranslations.com/translate/shakespeare.json";
-function getTranslation(text) {
-  return serverURL + "?" + "text=" + text;
+async function getTranslation(text){
+  try{
+    let response = await fetch(serverURL + text);
+    let data = await response.json();
+    outputDiv.innerHTML = data.contents.translated;
+  } 
+  catch(error){
+    alert("Something wrong with server :')");
+  }
 }
 
-function errorHandle(error) {
-  console.log("Error occured Fix it!", error);
-  alert("Something wrong with server :') ");
-}
-function clickHandle() {
-  var textIn = textInput.value;
-  fetch(getTranslation(textIn))
-    .then((response) => response.json())
-    .then((json) => {
-      console.log(json);
-      var result = json.contents.translated;
-      outputDiv.innerText = result;
-    })
-    .catch(errorHandle);
-}
+translateBtn.addEventListener("click", () => {
+  let text = textInput.value;
+  getTranslation(text);
+})
 
-translateBtn.addEventListener("click", clickHandle());
+textInput.addEventListener("keydown", (e) => {
+
+  if(e.key === "Enter"){
+    e.preventDefault();
+    translateBtn.click();
+  }
+
+})
